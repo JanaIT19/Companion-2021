@@ -47,6 +47,9 @@ public class Point : MonoBehaviour
        {
            Grid.ResetPointStates();
            Grid.isAnyPointClicked = false;
+           Grid.finishPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+           Grid.CreatePath(Grid.startPoint, Grid.finishPoint);
+           //Grid.finishPoint = new Vector2(this.X, this.Y);
            //draw the line
            //https://docs.unity3d.com/Manual/9SliceSprites.html
        } else if (Grid.isAnyPointClicked == false)
@@ -54,6 +57,8 @@ public class Point : MonoBehaviour
            this.pointType = PointsStateEnum.Clicked;
            Grid.isAnyPointClicked = true;
            pointVisual.color = Color.yellow;
+           Grid.startPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+           //Grid.startPoint = new Vector2(this.X, this.Y);
        }
     }
 

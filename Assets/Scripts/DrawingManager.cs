@@ -7,14 +7,18 @@ public class DrawingManager : MonoBehaviour
     public int x, y; //array dimensions (can differ from level to level)
     public float step = 1f;
     public GameObject pointPrefab; //prefab we gonna copy from
+    public GameObject platformPrefab; //platform prefab to copy 
     public GameObject[,] Grid; //grid of points
     public bool isAnyPointClicked { get; set; } = false;
+    public Vector3 startPoint { get; set; }
+    public Vector3 finishPoint { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
         Grid = new GameObject[y, x];
         CreateGrid();
+        Debug.Log(startPoint);
     }
 
     // Update is called once per frame
@@ -49,8 +53,8 @@ public class DrawingManager : MonoBehaviour
         //if Grid[yPoint, xPoint]
         //switch 
         //[i, j] => [y, x]
-        Debug.Log("x is: " + this.x + ", y is: " + this.y);
-        Debug.Log("x is: " + xPoint + ", y is: " + yPoint);
+        //Debug.Log("x is: " + this.x + ", y is: " + this.y);
+        //Debug.Log("x is: " + xPoint + ", y is: " + yPoint);
         int leftX = xPoint - 1;
         int rigthX = xPoint + 1;
         if (leftX >= 0 )
@@ -96,6 +100,42 @@ public class DrawingManager : MonoBehaviour
                 Grid[i, j].GetComponent<Point>().ChangeColor(Color.white);
             }
         }
+    }
+
+    public void CreatePath(Vector3 start, Vector3 end)
+    {
+        Debug.Log(start + "start" + end + "end");
+        //needs checking if any platform is placed in this place
+        if (end[0] - start[0] > 0.01f  || end[0] - start[0] < -0.01f)  //horizontal platform
+        {
+            Debug.Log("Hprizontal");
+            float newXpos = (end[0] - start[0])/2f;
+            var platform = Instantiate(platformPrefab, new Vector3(start[0] + newXpos, start[1], 0.01f), Quaternion.identity);
+            float pSize = step/0.2f;
+            Debug.Log("pSize" + pSize);
+            platform.GetComponent<SpriteRenderer>().size += new Vector2(platform.GetComponent<SpriteRenderer>().size.x * pSize, 0f);
+            platform.GetComponent<BoxCollider2D>().size += new Vector2(platform.GetComponent<BoxCollider2D>().size.x * pSize, 0f);
+        }
+
+        if (end[1] - start[1] > 0.01f  || end[1] - start[1] < -0.01f) //vertical platform
+        {
+            Debug.Log("Vertical");
+            float newYpos = (end[1] - start[1])/2f;
+            var platform = Instantiate(platformPrefab, new Vector3(start[0], start[1] + newYpos, 0.01f), Quaternion.identity);
+            float pSize = step/0.2f;
+            platform.GetComponent<SpriteRenderer>().size += new Vector2(0f, platform.GetComponent<SpriteRenderer>().size.y * pSize);
+            platform.GetComponent<BoxCollider2D>().size += new Vector2(0f, platform.GetComponent<BoxCollider2D>().size.y * pSize);
+        }
+
+
+        //https://docs.unity3d.com/ScriptReference/Vector3-operator_eq.html
+        //https://docs.unity3d.com/ScriptReference/Vector3.Index_operator.html
+        
+    }
+
+    private void CheckIfPathExists(Vector3 currentPlatformPos) //checking if platfrom is already placed
+    {
+
     }
 
 }
