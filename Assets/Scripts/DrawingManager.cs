@@ -104,27 +104,36 @@ public class DrawingManager : MonoBehaviour
 
     public void CreatePath(Vector3 start, Vector3 end)
     {
-        Debug.Log(start + "start" + end + "end");
-        //needs checking if any platform is placed in this place
+        Vector3 newPosition;
+
         if (end[0] - start[0] > 0.01f  || end[0] - start[0] < -0.01f)  //horizontal platform
         {
-            Debug.Log("Hprizontal");
+            Debug.Log("Horizontal");
             float newXpos = (end[0] - start[0])/2f;
-            var platform = Instantiate(platformPrefab, new Vector3(start[0] + newXpos, start[1], 0.01f), Quaternion.identity);
-            float pSize = step/0.2f;
-            Debug.Log("pSize" + pSize);
-            platform.GetComponent<SpriteRenderer>().size += new Vector2(platform.GetComponent<SpriteRenderer>().size.x * pSize, 0f);
-            platform.GetComponent<BoxCollider2D>().size += new Vector2(platform.GetComponent<BoxCollider2D>().size.x * pSize, 0f);
+            newPosition = new Vector3(start[0] + newXpos, start[1], 0.01f);
+            
+            if (CheckIfPathExists(newPosition))
+            {
+                var platform = Instantiate(platformPrefab, newPosition, Quaternion.identity);
+                float pSize = step/0.2f;
+                platform.GetComponent<SpriteRenderer>().size += new Vector2(platform.GetComponent<SpriteRenderer>().size.x * pSize, 0f);
+                platform.GetComponent<BoxCollider2D>().size += new Vector2(platform.GetComponent<BoxCollider2D>().size.x * pSize, 0f);
+            }
         }
 
         if (end[1] - start[1] > 0.01f  || end[1] - start[1] < -0.01f) //vertical platform
         {
             Debug.Log("Vertical");
             float newYpos = (end[1] - start[1])/2f;
-            var platform = Instantiate(platformPrefab, new Vector3(start[0], start[1] + newYpos, 0.01f), Quaternion.identity);
-            float pSize = step/0.2f;
-            platform.GetComponent<SpriteRenderer>().size += new Vector2(0f, platform.GetComponent<SpriteRenderer>().size.y * pSize);
-            platform.GetComponent<BoxCollider2D>().size += new Vector2(0f, platform.GetComponent<BoxCollider2D>().size.y * pSize);
+            newPosition = new Vector3(start[0], start[1] + newYpos, 0.01f);
+            
+            if (CheckIfPathExists(newPosition))
+            {
+                var platform = Instantiate(platformPrefab, newPosition, Quaternion.identity);
+                float pSize = step/0.2f;
+                platform.GetComponent<SpriteRenderer>().size += new Vector2(0f, platform.GetComponent<SpriteRenderer>().size.y * pSize);
+                platform.GetComponent<BoxCollider2D>().size += new Vector2(0f, platform.GetComponent<BoxCollider2D>().size.y * pSize);
+            }
         }
 
 
@@ -133,9 +142,20 @@ public class DrawingManager : MonoBehaviour
         
     }
 
-    private void CheckIfPathExists(Vector3 currentPlatformPos) //checking if platfrom is already placed
+    private bool CheckIfPathExists(Vector3 newPlatformPos) //checking if platfrom is already placed
     {
-
+        GameObject[] platformSet;
+        platformSet = GameObject.FindGameObjectsWithTag("RemovablePlatform");
+        
+        foreach (GameObject platform in platformSet)
+        {
+            if (platform != null && platform.transform.position == newPlatformPos)
+            {
+                Debug.Log("Cannot build the platform!");
+                return false;
+            }
+        }
+        return true;
     }
 
 }
