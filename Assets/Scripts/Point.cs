@@ -12,10 +12,9 @@ public class Point : MonoBehaviour
     
     private void Start() 
     {
-        if (gameObject.GetComponentInParent<DrawingManager>() != null)
-        {
-            Grid = gameObject.GetComponentInParent<DrawingManager>();
-        }
+        Grid = gameObject.GetComponentInParent<DrawingManager>();
+
+        pointVisual = gameObject.GetComponentInParent<SpriteRenderer>();
     }
 
     private void OnMouseOver() 
@@ -68,8 +67,5 @@ public class Point : MonoBehaviour
         pointVisual.color = c;
     }
 
-
-//1. Transform parent. get object - get component, ссылка на массив\родителя, вызвать нужным метод родителя;
-//2. UnityEvent
 }
 

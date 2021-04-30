@@ -8,7 +8,7 @@ public class DrawingManager : MonoBehaviour
     public float step = 1f;
     public GameObject pointPrefab; //prefab we gonna copy from
     public GameObject platformPrefab; //platform prefab to copy 
-    public GameObject[,] Grid; //grid of points
+    private GameObject[,] Grid; //grid of points
     public bool isAnyPointClicked { get; set; } = false;
     public Vector3 startPoint { get; set; }
     public Vector3 finishPoint { get; set; }
