@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,11 +14,11 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField]
     Transform groundCheck;
     
-    [SerializeField]
-    Transform groundCheckL;
+    //[SerializeField]
+    //Transform groundCheckL;
 
-    [SerializeField]
-    Transform groundCheckR;
+    //[SerializeField]
+    //Transform groundCheckR;
 
     [SerializeField]
     private float runSpeed = 2.5f;
@@ -30,16 +31,12 @@ public class PlayerController2D : MonoBehaviour
     {
         //playerAnimator = GetComponent<Animator>();
         playerRb = GetComponent<Rigidbody2D>();
-        playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        //playerSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
     {
-        if(Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground")) ||
-        Physics2D.Linecast(transform.position, groundCheckL.position, 1 << LayerMask.NameToLayer("Ground")) ||
-        Physics2D.Linecast(transform.position, groundCheckR.position, 1 << LayerMask.NameToLayer("Ground"))
-        
-        )
+        if(Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground")))
         {
             isGrounded = true;
         }
@@ -56,7 +53,8 @@ public class PlayerController2D : MonoBehaviour
             {
             //playerAnimator.Play("");  running animation
             }
-            playerSpriteRenderer.flipX = false;
+            //playerSpriteRenderer.flipX = false;
+            transform.localScale = new Vector3(Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
         else if(Input.GetAxisRaw("Horizontal")<0)
         {
@@ -65,7 +63,8 @@ public class PlayerController2D : MonoBehaviour
             {
             //playerAnimator.Play("");  running animation
             }
-            playerSpriteRenderer.flipX = true;
+            //playerSpriteRenderer.flipX = true;
+            transform.localScale = new Vector3((-1) * Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         } 
         else
         {

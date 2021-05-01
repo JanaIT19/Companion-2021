@@ -15,19 +15,15 @@ public class MouseFollow : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate() 
     {
         if (rb != null)
         {
             mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             position = Vector2.Lerp(transform.position, mousePosition, moveSpeed);
-        }
-    }
 
-    private void FixedUpdate() 
-    {
-        rb.MovePosition(position);
+            rb.MovePosition(position);
+        }
     }
 }
