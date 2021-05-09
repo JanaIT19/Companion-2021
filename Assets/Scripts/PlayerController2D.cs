@@ -9,16 +9,10 @@ public class PlayerController2D : MonoBehaviour
     Rigidbody2D playerRb;
     SpriteRenderer playerSpriteRenderer;
 
-    bool isGrounded;
+    private bool isGrounded;
 
     [SerializeField]
     Transform groundCheck;
-    
-    //[SerializeField]
-    //Transform groundCheckL;
-
-    //[SerializeField]
-    //Transform groundCheckR;
 
     [SerializeField]
     private float runSpeed = 2.5f;
@@ -31,7 +25,6 @@ public class PlayerController2D : MonoBehaviour
     {
         //playerAnimator = GetComponent<Animator>();
         playerRb = GetComponent<Rigidbody2D>();
-        //playerSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()

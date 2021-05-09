@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using UnityEngine.Events;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,18 +14,19 @@ public class DrawingManager : MonoBehaviour
     public Vector3 startPoint { get; set; }
     public Vector3 finishPoint { get; set; }
 
+    private EventManager _eventManager;
+
+    private void Awake() 
+    {
+        _eventManager = FindObjectOfType<EventManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         Grid = new GameObject[y, x];
         CreateGrid();
         Debug.Log(startPoint);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void CreateGrid()
@@ -118,6 +120,7 @@ public class DrawingManager : MonoBehaviour
                 float pSize = step/0.2f;
                 platform.GetComponent<SpriteRenderer>().size += new Vector2(platform.GetComponent<SpriteRenderer>().size.x * pSize, 0f);
                 platform.GetComponent<BoxCollider2D>().size += new Vector2(platform.GetComponent<BoxCollider2D>().size.x * pSize, 0f);
+                _eventManager?.OnPlatformCreated.Invoke();
             }
         }
 
@@ -133,6 +136,7 @@ public class DrawingManager : MonoBehaviour
                 float pSize = step/0.2f;
                 platform.GetComponent<SpriteRenderer>().size += new Vector2(0f, platform.GetComponent<SpriteRenderer>().size.y * pSize);
                 platform.GetComponent<BoxCollider2D>().size += new Vector2(0f, platform.GetComponent<BoxCollider2D>().size.y * pSize);
+                _eventManager?.OnPlatformCreated.Invoke();
             }
         }
 

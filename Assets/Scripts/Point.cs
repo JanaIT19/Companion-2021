@@ -9,6 +9,12 @@ public class Point : MonoBehaviour
     public int Y { get; set; } = 0;
     public SpriteRenderer pointVisual;
     private DrawingManager Grid;
+    private LevelManager _levelManager;
+
+    private void Awake() 
+    {
+        _levelManager = FindObjectOfType<LevelManager>();
+    }
     
     private void Start() 
     {
@@ -19,6 +25,11 @@ public class Point : MonoBehaviour
 
     private void OnMouseOver() 
     {
+        if(IsPlatformLimitReached())
+        {
+            return;
+        }
+        
         if (Grid.isAnyPointClicked == true)
         {
             return;
@@ -42,29 +53,36 @@ public class Point : MonoBehaviour
 
     private void OnMouseDown() 
     {
-       if (this.pointType == PointsStateEnum.Neighbour)
-       {
-           Grid.ResetPointStates();
-           Grid.isAnyPointClicked = false;
-           Grid.finishPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
-           Grid.CreatePath(Grid.startPoint, Grid.finishPoint);
-           //Grid.finishPoint = new Vector2(this.X, this.Y);
+        if(IsPlatformLimitReached())
+        {
+            return;
+        }
+
+        if (this.pointType == PointsStateEnum.Neighbour)
+        {
+            Grid.ResetPointStates();
+            Grid.isAnyPointClicked = false;
+            Grid.finishPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+            Grid.CreatePath(Grid.startPoint, Grid.finishPoint);
            //draw the line
-           //https://docs.unity3d.com/Manual/9SliceSprites.html
-       } else if (Grid.isAnyPointClicked == false)
-       {
+        } else if (Grid.isAnyPointClicked == false)
+        {
            this.pointType = PointsStateEnum.Clicked;
            Grid.isAnyPointClicked = true;
            pointVisual.color = Color.yellow;
            Grid.startPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
-           //Grid.startPoint = new Vector2(this.X, this.Y);
-       }
+        }
     }
 
 
     public void ChangeColor(Color c)
     {
         pointVisual.color = c;
+    }
+
+    private bool IsPlatformLimitReached()
+    {
+        return _levelManager != null && _levelManager.IsPlatformLimitReached();
     }
 
 }
