@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectibleScript : MonoBehaviour
+public class CollectItems : MonoBehaviour
 {
     private EventManager _eventManager;
 
@@ -11,14 +11,12 @@ public class CollectibleScript : MonoBehaviour
         _eventManager = FindObjectOfType<EventManager>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other) //checks only once
+    private void OnTriggerEnter2D(Collider2D other) 
     {
-        var pointComp = other.gameObject.GetComponent<Point>(); //check player tag instead!!!
-
-        if (pointComp != null)
+        var item = other.gameObject.GetComponent<CollectibleItem>(); 
+        if (item != null)
         {
             _eventManager?.OnItemCollected.Invoke();
-            Destroy(this.gameObject);
-        }
+        }   
     }
 }

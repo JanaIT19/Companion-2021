@@ -8,7 +8,8 @@ public class LevelManager : MonoBehaviour
     [Range (1, 10)]
     public int PlatformCountLimit = 3; //maximum value
     public int PlatformCounter {get; private set;}
-    
+
+    private int testCounter;
     private EventManager _eventManager;
 
     private void Awake() 
@@ -31,5 +32,10 @@ public class LevelManager : MonoBehaviour
     public bool IsPlatformLimitReached()
     {
         return PlatformCounter >= PlatformCountLimit;
+    }
+
+    public void AddPiece()
+    {
+        testCounter--;
     }
 }

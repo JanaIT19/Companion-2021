@@ -10,15 +10,18 @@ public class CharacterMoveController : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
     private bool _isFacingRight = true;
+    private Animator _animator;
     // Start is called before the first frame update
     private void Awake() 
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void FixedUpdate() 
     {
         float velocity = Input.GetAxisRaw("Horizontal") * MoveSpeed;
+        _animator.SetFloat("Speed", Mathf.Abs(velocity));
         if ((!_isFacingRight && velocity > 0) || (_isFacingRight && velocity < 0))
         {
             Flip();

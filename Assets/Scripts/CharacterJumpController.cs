@@ -13,11 +13,13 @@ public class CharacterJumpController : MonoBehaviour
 
     private bool _isGrounded;
     private Rigidbody2D _rigidBody;
+    private Animator _animator;
 
     // Start is called before the first frame update
     private void Awake() 
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void Update() 
@@ -30,6 +32,7 @@ public class CharacterJumpController : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        _isGrounded = Physics2D.OverlapCircle(GroundCheck.position, GroundCheckRadius, GroundLayer);    
+        _isGrounded = Physics2D.OverlapCircle(GroundCheck.position, GroundCheckRadius, GroundLayer);
+        _animator.SetBool("IsJumping", !_isGrounded);
     }
 }
