@@ -37,5 +37,6 @@ public class LevelManager : MonoBehaviour
     public void AddPiece()
     {
         testCounter--;
+        //проверка и запуск ивента, что уровень можно пройти
     }
 }

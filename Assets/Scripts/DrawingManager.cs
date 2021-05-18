@@ -49,7 +49,7 @@ public class DrawingManager : MonoBehaviour
         }
     }
 
-    public void ActivateOrNotNeighbours(int xPoint, int yPoint, PointsStateEnum state, Color paint)
+    public void ActivateOrNotNeighbours(int xPoint, int yPoint, PointsStateEnum state, string status)
     {
         //needs checking if point is enabled???!!!
         //if Grid[yPoint, xPoint]
@@ -62,14 +62,14 @@ public class DrawingManager : MonoBehaviour
         if (leftX >= 0 )
         {
             Grid[yPoint, leftX].GetComponent<Point>().pointType = state;
-            Grid[yPoint, leftX].GetComponent<Point>().ChangeColor(paint);
+            Grid[yPoint, leftX].GetComponent<ChangeSprites>().ChangeSprite(status);
         }
 
         if (rigthX < this.x )
         {
 
             Grid[yPoint, rigthX].GetComponent<Point>().pointType = state;
-            Grid[yPoint, rigthX].GetComponent<Point>().ChangeColor(paint);
+            Grid[yPoint, rigthX].GetComponent<ChangeSprites>().ChangeSprite(status);
         }
 
         int leftY = yPoint - 1;
@@ -77,13 +77,13 @@ public class DrawingManager : MonoBehaviour
         if (leftY >= 0 )
         {
             Grid[leftY, xPoint].GetComponent<Point>().pointType = state;
-            Grid[leftY, xPoint].GetComponent<Point>().ChangeColor(paint);
+            Grid[leftY, xPoint].GetComponent<ChangeSprites>().ChangeSprite(status);
         }
 
         if (rigthY < this.y )
         {
             Grid[rigthY, xPoint].GetComponent<Point>().pointType = state;
-            Grid[rigthY, xPoint].GetComponent<Point>().ChangeColor(paint);
+            Grid[rigthY, xPoint].GetComponent<ChangeSprites>().ChangeSprite(status);
         }
         leftX = 0;
         rigthX = 0;
@@ -99,7 +99,7 @@ public class DrawingManager : MonoBehaviour
             for (int j = 0; j < Grid.GetLength(1); j++)
             {
                 Grid[i, j].GetComponent<Point>().pointType = PointsStateEnum.Unselected;
-                Grid[i, j].GetComponent<Point>().ChangeColor(Color.white);
+                Grid[i, j].GetComponent<ChangeSprites>().ChangeSprite("Default");
             }
         }
     }
@@ -139,11 +139,6 @@ public class DrawingManager : MonoBehaviour
                 _eventManager?.OnPlatformCreated.Invoke();
             }
         }
-
-
-        //https://docs.unity3d.com/ScriptReference/Vector3-operator_eq.html
-        //https://docs.unity3d.com/ScriptReference/Vector3.Index_operator.html
-        
     }
 
     private bool CheckIfPathExists(Vector3 newPlatformPos) //checking if platfrom is already placed

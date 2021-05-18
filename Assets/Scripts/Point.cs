@@ -7,20 +7,19 @@ public class Point : MonoBehaviour
     public PointsStateEnum pointType { get; set; } = PointsStateEnum.Unselected;
     public int X { get; set; } = 0;
     public int Y { get; set; } = 0;
-    public SpriteRenderer pointVisual;
     private DrawingManager Grid;
+    private ChangeSprites _spriteChanger;
     private LevelManager _levelManager;
 
     private void Awake() 
     {
         _levelManager = FindObjectOfType<LevelManager>();
+        _spriteChanger = GetComponent<ChangeSprites>();
     }
     
     private void Start() 
     {
         Grid = gameObject.GetComponentInParent<DrawingManager>();
-
-        pointVisual = gameObject.GetComponentInParent<SpriteRenderer>();
     }
 
     private void OnMouseOver() 
@@ -35,8 +34,8 @@ public class Point : MonoBehaviour
             return;
         }
         this.pointType = PointsStateEnum.Selected;
-        Grid.ActivateOrNotNeighbours(this.X, this.Y, PointsStateEnum.Neighbour, Color.blue);
-        pointVisual.color = Color.red;
+        Grid.ActivateOrNotNeighbours(this.X, this.Y, PointsStateEnum.Neighbour, "Neighbour");
+        _spriteChanger.ChangeSprite("Active");
 
     }
 
@@ -47,8 +46,8 @@ public class Point : MonoBehaviour
             return;
         }
         this.pointType = PointsStateEnum.Unselected;
-        Grid.ActivateOrNotNeighbours(this.X, this.Y, PointsStateEnum.Unselected, Color.white);
-        pointVisual.color = Color.white;
+        Grid.ActivateOrNotNeighbours(this.X, this.Y, PointsStateEnum.Unselected, "Default");
+        _spriteChanger.ChangeSprite("Default");
     }
 
     private void OnMouseDown() 
@@ -69,15 +68,9 @@ public class Point : MonoBehaviour
         {
            this.pointType = PointsStateEnum.Clicked;
            Grid.isAnyPointClicked = true;
-           pointVisual.color = Color.yellow;
+           _spriteChanger.ChangeSprite("Active");
            Grid.startPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         }
-    }
-
-
-    public void ChangeColor(Color c)
-    {
-        pointVisual.color = c;
     }
 
     private bool IsPlatformLimitReached()

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -4967450487415099687}
   - component: {fileID: 5764233778383483712}
   - component: {fileID: 8694385494354984340}
+  - component: {fileID: 598740481665707449}
   m_Layer: 10
   m_Name: Point
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 9ee4ae828590b684bb41ef37403fbc36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,3 +135,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
+--- !u!114 &598740481665707449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4432427901434596579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a81532272f02b4b91832d280365208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteArray:
+  - {fileID: 21300000, guid: 9ee4ae828590b684bb41ef37403fbc36, type: 3}
+  - {fileID: 21300000, guid: 44cfa74a7578c0b48af06a9427e1989e, type: 3}
+  - {fileID: 21300000, guid: 803e5f42218f1ee42a0eac64ca5e5ffc, type: 3}

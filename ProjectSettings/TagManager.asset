@@ -43,3 +43,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Sky
+    uniqueID: 2505152227
+    locked: 0
+  - name: Platforms
+    uniqueID: 859526209
+    locked: 0
+  - name: Points
+    uniqueID: 1368882813
+    locked: 0
+  - name: Player
+    uniqueID: 31018269
+    locked: 0
+  - name: Star Glow
+    uniqueID: 3129087007
+    locked: 0
+  - name: Star
+    uniqueID: 348153351
+    locked: 0

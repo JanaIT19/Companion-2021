@@ -17,6 +17,7 @@ public class CollectItems : MonoBehaviour
         if (item != null)
         {
             _eventManager?.OnItemCollected.Invoke();
+            item.DeleteItem();
         }   
     }
 }
