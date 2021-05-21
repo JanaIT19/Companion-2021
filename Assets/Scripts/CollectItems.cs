@@ -19,5 +19,11 @@ public class CollectItems : MonoBehaviour
             _eventManager?.OnItemCollected.Invoke();
             item.DeleteItem();
         }   
+
+        var win = other.gameObject.GetComponent<WinCondition>(); 
+        if (win != null && win.IsExitActivated)
+        {
+            Debug.Log("Cool!");
+        }
     }
 }

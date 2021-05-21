@@ -8,4 +8,5 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnPlatformCreated;
     public UnityEvent OnPlatformRemoved;
     public UnityEvent OnItemCollected;
+    public UnityEvent OnAllItemsCollected;
 }

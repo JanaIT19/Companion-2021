@@ -24,7 +24,7 @@ public class MovingPlatform : MonoBehaviour
         while (transform.position != destination)
         {
             transform.position = Vector3.Lerp(transform.position, destination, speed * Time.deltaTime);
-            yield return null;
+            yield return null; //each frame
         }
         destination = copyOfPosition;
         yield return new WaitForSeconds(pauseTime);

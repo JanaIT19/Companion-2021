@@ -9,7 +9,9 @@ public class LevelManager : MonoBehaviour
     public int PlatformCountLimit = 3; //maximum value
     public int PlatformCounter {get; private set;}
 
-    private int testCounter;
+    [Range (1, 10)]
+    public int CollectibleCounter;
+
     private EventManager _eventManager;
 
     private void Awake() 
@@ -36,7 +38,11 @@ public class LevelManager : MonoBehaviour
 
     public void AddPiece()
     {
-        testCounter--;
+        CollectibleCounter--;
+        if (CollectibleCounter == 0)
+        {
+            _eventManager?.OnAllItemsCollected.Invoke();
+        }
         //проверка и запуск ивента, что уровень можно пройти
     }
 }
