@@ -23,11 +23,13 @@ public class LevelManager : MonoBehaviour
     public void PlatformAdd()
     {
         PlatformCounter = Math.Min(PlatformCountLimit, PlatformCounter+1);
+        OnPlatformChange();
     }
 
     public void PlatformRemove()
     {
         PlatformCounter = Math.Max(0, PlatformCounter-1);
+        OnPlatformChange();
 
     }
 
@@ -43,6 +45,17 @@ public class LevelManager : MonoBehaviour
         {
             _eventManager?.OnAllItemsCollected.Invoke();
         }
-        //проверка и запуск ивента, что уровень можно пройти
+        _eventManager?.OnItemCounterChange.Invoke();
+        OnItemCounterChange(CollectibleCounter);
+    }
+
+    private void OnPlatformChange()
+    {
+        _eventManager?.OnPlatformCounterChange.Invoke();
+    }
+
+    private void OnItemCounterChange(int itemCounter)
+    {
+        _eventManager?.TestItemCounter.Invoke(itemCounter);
     }
 }

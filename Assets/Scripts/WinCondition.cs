@@ -10,4 +10,16 @@ public class WinCondition : MonoBehaviour
     {
         IsExitActivated = true;
     }
+
+    public void CheckWinCondition(int itemCounter)
+    {
+        if (itemCounter <= 0)
+        {
+            Debug.Log("Win");
+        } 
+        else
+        {
+            Debug.Log("Not win");
+        }
+    }
 }
