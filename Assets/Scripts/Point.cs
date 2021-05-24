@@ -7,7 +7,8 @@ public class Point : MonoBehaviour
     public PointsStateEnum pointType { get; set; } = PointsStateEnum.Unselected;
     public int X { get; set; } = 0;
     public int Y { get; set; } = 0;
-    private DrawingManager Grid;
+    
+    private DrawingManager _drawingManager;
     private ChangeSprites _spriteChanger;
     private LevelManager _levelManager;
 
@@ -19,7 +20,7 @@ public class Point : MonoBehaviour
     
     private void Start() 
     {
-        Grid = gameObject.GetComponentInParent<DrawingManager>();
+        _drawingManager = gameObject.GetComponentInParent<DrawingManager>();
     }
 
     private void OnMouseOver() 
@@ -29,24 +30,24 @@ public class Point : MonoBehaviour
             return;
         }
         
-        if (Grid.isAnyPointClicked == true)
+        if (_drawingManager.IsAnyPointClicked == true)
         {
             return;
         }
         this.pointType = PointsStateEnum.Selected;
-        Grid.ActivateOrNotNeighbours(this.X, this.Y, PointsStateEnum.Neighbour, "Neighbour");
+        _drawingManager.ActivateOrNotNeighbours(this.X, this.Y, PointsStateEnum.Neighbour, "Neighbour");
         _spriteChanger.ChangeSprite("Active");
 
     }
 
     private void OnMouseExit() 
     {
-        if (Grid.isAnyPointClicked == true)
+        if (_drawingManager.IsAnyPointClicked == true)
         {
             return;
         }
         this.pointType = PointsStateEnum.Unselected;
-        Grid.ActivateOrNotNeighbours(this.X, this.Y, PointsStateEnum.Unselected, "Default");
+        _drawingManager.ActivateOrNotNeighbours(this.X, this.Y, PointsStateEnum.Unselected, "Default");
         _spriteChanger.ChangeSprite("Default");
     }
 
@@ -59,17 +60,17 @@ public class Point : MonoBehaviour
 
         if (this.pointType == PointsStateEnum.Neighbour)
         {
-            Grid.ResetPointStates();
-            Grid.isAnyPointClicked = false;
-            Grid.finishPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
-            Grid.CreatePath(Grid.startPoint, Grid.finishPoint);
+            _drawingManager.ResetPointStates();
+            _drawingManager.IsAnyPointClicked = false;
+            _drawingManager.FinishPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+            _drawingManager.CreatePath(_drawingManager.StartPoint, _drawingManager.FinishPoint);
            //draw the line
-        } else if (Grid.isAnyPointClicked == false)
+        } else if (_drawingManager.IsAnyPointClicked == false)
         {
            this.pointType = PointsStateEnum.Clicked;
-           Grid.isAnyPointClicked = true;
+           _drawingManager.IsAnyPointClicked = true;
            _spriteChanger.ChangeSprite("Active");
-           Grid.startPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+           _drawingManager.StartPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
         }
     }
 

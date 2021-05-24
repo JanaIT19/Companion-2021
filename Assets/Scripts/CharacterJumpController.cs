@@ -14,12 +14,14 @@ public class CharacterJumpController : MonoBehaviour
     private bool _isGrounded;
     private Rigidbody2D _rigidBody;
     private Animator _animator;
+    private EventManager _eventManager;
 
     // Start is called before the first frame update
     private void Awake() 
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
+        _eventManager = FindObjectOfType<EventManager>();
     }
 
     private void Update() 
@@ -27,6 +29,7 @@ public class CharacterJumpController : MonoBehaviour
         if (_isGrounded && Input.GetButtonDown("Jump"))
         {
             _rigidBody.velocity = new Vector2(_rigidBody.velocity.x, JumpForce ); //addforce would sum up values and make it look weird
+            _eventManager?.OnPlayerJump.Invoke();
         }
     }
 

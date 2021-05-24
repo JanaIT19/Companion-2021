@@ -17,9 +17,5 @@ public class WinCondition : MonoBehaviour
         {
             Debug.Log("Win");
         } 
-        else
-        {
-            Debug.Log("Not win");
-        }
     }
 }
