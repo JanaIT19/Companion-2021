@@ -16,5 +16,6 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnPlatformCounterChange;
     public UnityEvent OnItemCounterChange;
     public UnityEvent OnPlayerJump;
+    public UnityEvent OnWinConditionIsMet;
     public UnityEventInt TestItemCounter;
 }

@@ -5,7 +5,13 @@ using UnityEngine;
 public class WinCondition : MonoBehaviour
 {
     public bool IsExitActivated {get; private set;} = false;
+    private EventManager _eventManager;
 
+    private void Awake() 
+    {
+        _eventManager = FindObjectOfType<EventManager>();
+    }
+    
     public void SetWinCondition()
     {
         IsExitActivated = true;
@@ -15,7 +21,7 @@ public class WinCondition : MonoBehaviour
     {
         if (itemCounter <= 0)
         {
-            Debug.Log("Win");
+            _eventManager?.OnAllItemsCollected.Invoke();
         } 
     }
 }

@@ -46,8 +46,20 @@ TagManager:
   - name: Sky
     uniqueID: 2505152227
     locked: 0
+  - name: Clouds
+    uniqueID: 3869093271
+    locked: 0
+  - name: Mist
+    uniqueID: 2136029373
+    locked: 0
+  - name: Islands
+    uniqueID: 4209625475
+    locked: 0
   - name: Platforms
     uniqueID: 859526209
+    locked: 0
+  - name: Door
+    uniqueID: 549128791
     locked: 0
   - name: Points
     uniqueID: 1368882813
